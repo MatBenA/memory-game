@@ -1,12 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import selectedNames from "./assets/selected-names.json";
+import Card from "./components/Card";
 
 import "./App.css";
 
 function App() {
     const [score, setScore] = useState(0);
-    const handleScore = () => setScore((prev) => prev + 1);
 
+    //TODO if character is repeated, set score back to zero
+    const handleScore = ({ target }) => {
+        console.log(target.parentNode.id);
+        setScore((prev) => prev + 1);
+    };
+
+    //TODO Should shuffle the divs in a random order every time score is updated
+    useEffect(() => {}, [score]);
+
+    //TODO if you lose and your current score is greater than your best score
+    //set best score to current score
     const [bestScore, setBestScore] = useState(0);
+
+    const [characters, setCharacters] = useState(null);
+    //fetches characters in the first render
+    useEffect(() => {
+        fetch("https://stand-by-me.herokuapp.com/api/v1/characters")
+            .then((response) => response.json())
+            .then((response) =>
+                //chooses characters that appear in the selected-names file
+                setCharacters(
+                    response.filter((char) =>
+                        selectedNames.some((name) => char.name === name)
+                    )
+                )
+            );
+    }, []);
+
+    //
 
     return (
         <>
@@ -17,20 +46,22 @@ function App() {
                 Get points by clicking on an image but do not click on any more
                 than once!
             </p>
-            <section>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-                <div className="card" onClick={handleScore}>tarjeta</div>
-            </section>
+
+            {
+                //Lists the cards with their respective character
+            }
+            {!characters ? (
+                <p>Loading...</p>
+            ) : (
+                characters.map((char) => (
+                    <Card
+                        character={char}
+                        onClick={handleScore}
+                        id={char.id}
+                        key={char.id}
+                    />
+                ))
+            )}
         </>
     );
 }
