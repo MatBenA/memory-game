@@ -8,13 +8,16 @@ function App() {
     const [score, setScore] = useState(0);
 
     //TODO if character is repeated, set score back to zero
+
     const handleScore = ({ target }) => {
         console.log(target.parentNode.id);
         setScore((prev) => prev + 1);
     };
 
     //TODO Should shuffle the divs in a random order every time score is updated
-    useEffect(() => {}, [score]);
+    useEffect(() => {
+        characters && shuffle(characters);
+    }, [score]);
 
     //TODO if you lose and your current score is greater than your best score
     //set best score to current score
@@ -47,9 +50,7 @@ function App() {
                 than once!
             </p>
 
-            {
-                //Lists the cards with their respective character
-            }
+            {/* Lists the cards with their respective character */}
             {!characters ? (
                 <p>Loading...</p>
             ) : (
@@ -64,6 +65,15 @@ function App() {
             )}
         </>
     );
+}
+
+// declare the function
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 export default App;
