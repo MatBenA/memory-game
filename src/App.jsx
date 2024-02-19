@@ -14,11 +14,6 @@ function App() {
         setScore((prev) => prev + 1);
     };
 
-    //TODO Should shuffle the divs in a random order every time score is updated
-    useEffect(() => {
-        characters && shuffle(characters);
-    }, [score]);
-
     //TODO if you lose and your current score is greater than your best score
     //set best score to current score
     const [bestScore, setBestScore] = useState(0);
@@ -37,6 +32,11 @@ function App() {
                 )
             );
     }, []);
+
+    //Shuffles the Cards in a random order every time score is updated
+    useEffect(() => {
+        characters && shuffle(characters);
+    }, [score, characters]);
 
     //
 
