@@ -5,21 +5,31 @@ import Card from "./components/Card";
 import "./App.css";
 
 function App() {
-    const [score, setScore] = useState(0);
 
-    //TODO if character is repeated, set score back to zero
-
+    //if character is repeated, set score back to zero
+    const [clickedChars, setClickedChars] = useState([]);
     const handleScore = ({ target }) => {
-        console.log(target.parentNode.id);
-        setScore((prev) => prev + 1);
+        const clickedId = target.parentNode.id;
+        setClickedChars((clickedChar) => {
+            const wasClicked = clickedChars.some(
+                (charId) => charId === clickedId
+            );
+
+            if (wasClicked) {
+                return [];
+            } else {
+                return [...clickedChar, clickedId];
+            }
+        });
     };
 
     //TODO if you lose and your current score is greater than your best score
     //set best score to current score
     const [bestScore, setBestScore] = useState(0);
 
-    const [characters, setCharacters] = useState(null);
+    const [characters, setCharacters] = useState([]);
     //fetches characters in the first render
+    //TODO Clean-Up Function
     useEffect(() => {
         fetch("https://stand-by-me.herokuapp.com/api/v1/characters")
             .then((response) => response.json())
@@ -34,16 +44,17 @@ function App() {
     }, []);
 
     //Shuffles the Cards in a random order every time score is updated
+    //TODO Clean-Up function
     useEffect(() => {
-        characters && shuffle(characters);
-    }, [score, characters]);
+        characters && setCharacters((chars) => shuffle(chars));
+    }, [clickedChars, characters]);
 
     //
 
     return (
         <>
             <h1>Memory Card Game!</h1>
-            <p>Score: {score}</p>
+            <p>Score: {clickedChars.length}</p>
             <p>Best Score: {bestScore}</p>
             <p>
                 Get points by clicking on an image but do not click on any more
@@ -67,7 +78,7 @@ function App() {
     );
 }
 
-// declare the function
+// shuffles an array
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
