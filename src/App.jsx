@@ -73,18 +73,20 @@ function App() {
             </p>
 
             {/* Lists the cards with their respective character */}
-            {!characters ? (
-                <p>Loading...</p>
-            ) : (
-                characters.map((char) => (
-                    <Card
-                        character={char}
-                        onClick={handleScore}
-                        id={char.id}
-                        key={char.id}
-                    />
-                ))
-            )}
+            <section>
+                {!characters ? (
+                    <p>Loading...</p>
+                ) : (
+                    characters.map((char) => (
+                        <Card
+                            character={char}
+                            onClick={handleScore}
+                            id={char.id}
+                            key={char.id}
+                        />
+                    ))
+                )}
+            </section>
         </>
     );
 }

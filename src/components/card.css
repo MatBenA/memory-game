@@ -1,0 +1,29 @@
+.card {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 12rem;
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 8px 4px #d3d3d3d1;
+    border-radius: 15px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.card:hover {
+    background-color: rgb(247, 205, 255);
+}
+
+.card:active {
+    background-color: rgb(243, 183, 255);
+}
+
+img {
+    float: left;
+    height: 300px;
+    background-size: cover;
+}
