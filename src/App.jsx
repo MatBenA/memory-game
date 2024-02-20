@@ -5,7 +5,6 @@ import Card from "./components/Card";
 import "./App.css";
 
 function App() {
-
     //if character is repeated, set score back to zero
     const [clickedChars, setClickedChars] = useState([]);
     const handleScore = ({ target }) => {
@@ -23,9 +22,18 @@ function App() {
         });
     };
 
-    //TODO if you lose and your current score is greater than your best score
-    //set best score to current score
+    //if your current score is greater than your
+    //best score set best score to current score
     const [bestScore, setBestScore] = useState(0);
+    useEffect(() => {
+        setBestScore((prevBest) => {
+            if (clickedChars.length > prevBest) {
+                return clickedChars.length;
+            } else {
+                return prevBest;
+            }
+        });
+    }, [clickedChars]);
 
     const [characters, setCharacters] = useState([]);
     //fetches characters in the first render
@@ -54,6 +62,9 @@ function App() {
     return (
         <>
             <h1>Memory Card Game!</h1>
+            {(characters && characters.length === bestScore) && (
+                <h2>YOU WIN</h2>
+            )}
             <p>Score: {clickedChars.length}</p>
             <p>Best Score: {bestScore}</p>
             <p>
