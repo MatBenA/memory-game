@@ -61,16 +61,22 @@ function App() {
 
     return (
         <>
-            <h1>Memory Card Game!</h1>
-            {(characters && characters.length === bestScore) && (
-                <h2>YOU WIN</h2>
-            )}
-            <p>Score: {clickedChars.length}</p>
-            <p>Best Score: {bestScore}</p>
-            <p>
-                Get points by clicking on an image but do not click on any more
-                than once!
-            </p>
+            <div className="top-bar">
+                <h1>
+                    JoJo&apos;s Bizzare Adventure:<br></br> Memory Card Game!
+                </h1>
+                <div className="score">
+                    <div className="score-count">
+                        <h3>Score: {clickedChars.length}</h3>
+                        <h3>Best Score: {bestScore}</h3>
+                    </div>
+                    <p>
+                        Get points by clicking on an image but do not click on
+                        any more than once!
+                    </p>
+                </div>
+            </div>
+            {selectedNames.length === bestScore && <h1 className="winner">You Win!</h1>}
 
             {/* Lists the cards with their respective character */}
             <section>

@@ -9,12 +9,51 @@ section {
 
 h1 {
     font-family: "ArialJJBA";
-    color: purple;
+    background: -webkit-linear-gradient(rgb(128, 0, 128), #c7c7c7);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 auto;
 }
 
 p {
     font-family: "ArialJJBA";
     color: purple;
+}
+
+.top-bar {
+    max-width: 800px;
+    margin: 1.5rem auto;
+    display: flex;
+    gap: 1rem;
+}
+
+.top-bar h1 {
+    flex-grow: 1;
+}
+
+.score {
+    flex-grow: 2;
+}
+
+.score p {
+    color: white;
+    background-color: rgb(128, 0, 128);
+    border-radius: 5px;
+    padding: 4px;
+    max-width: 400px;
+}
+
+.score-count h3 {
+    margin: 3px 5px;
+}
+
+.score-count {
+    display: flex;
+    align-content: space-between;
+}
+
+.score p {
+    margin: 0px;
 }
 
 #root {
@@ -32,6 +71,11 @@ p {
 }
 .logo.react:hover {
     filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.winner {
+    font-size: 8rem;
+
 }
 
 @keyframes logo-spin {
